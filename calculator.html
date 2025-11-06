@@ -3,127 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neon Glass Calculator</title>
+<title>Ashwini Calculator</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
     body {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background: radial-gradient(circle at top left, #000, #050505, #111);
+        background: #0e0e0e;
         font-family: 'Orbitron', sans-serif;
-        overflow: hidden;
+        margin: 0;
     }
-
     .calculator {
-        background: rgba(255, 255, 255, 0.08);
+        width: 340px;
+        background: #1c1c1c;
         border-radius: 25px;
-        padding: 25px;
-        box-shadow: 0 8px 25px rgba(0, 255, 255, 0.2),
-                    0 0 40px rgba(0, 255, 255, 0.15);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(0, 255, 255, 0.2);
-        width: 320px;
-        transition: transform 0.2s ease-in-out;
+        padding: 20px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        color: #fff;
+        position: relative;
     }
 
-    .calculator:hover {
-        transform: scale(1.02);
-        box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+    /* ===== Header Branding ===== */
+    .brand {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+        position: relative;
+    }
+    .brand .left {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    .brand .left .name {
+        font-weight: 800;
+        font-size: 18px;
+        color: #00bfff;
+    }
+    .brand .left .model {
+        font-size: 12px;
+        color: #ccc;
+        letter-spacing: 1px;
+    }
+    .brand .right {
+        font-size: 11px;
+        color: #aaa;
     }
 
-    #result {
-        width: 100%;
+    /* ===== Display Screen ===== */
+    .display {
+        background: #02161a;
+        border-radius: 8px;
         height: 60px;
-        font-size: 28px;
-        text-align: right;
-        padding-right: 15px;
-        border: none;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        padding: 8px 10px;
+        margin-bottom: 15px;
         color: #00fff7;
-        outline: none;
+        font-size: 24px;
         text-shadow: 0 0 8px #00fff7;
     }
+    .display small {
+        align-self: flex-start;
+        font-size: 12px;
+        color: #a0a0a0;
+    }
 
+    /* ===== Buttons ===== */
     .buttons {
         display: grid;
-        grid-template-columns: repeat(4, 70px);
-        gap: 12px;
-        justify-content: center;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
     }
-
     button {
-        height: 65px;
-        font-size: 20px;
+        height: 50px;
         border: none;
-        border-radius: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
         cursor: pointer;
-        background: rgba(255, 255, 255, 0.08);
-        color: #00fff7;
-        text-shadow: 0 0 6px #00fff7;
         transition: 0.2s;
-        box-shadow: 0 0 12px rgba(0, 255, 255, 0.15);
-    }
-
-    button:hover {
-        background: rgba(0, 255, 255, 0.2);
-        box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-        transform: scale(1.07);
+        color: #fff;
     }
 
     button:active {
-        transform: scale(0.97);
-        box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        transform: scale(0.9);
     }
 
-    .equals {
-        background: linear-gradient(90deg, #00fff7, #00b7ff);
-        color: #000;
-        text-shadow: none;
-        font-weight: bold;
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-    }
+    .yellow { background: #ffcc00; color: #000; }
+    .red { background: #ff5555; }
+    .green { background: #00cc44; }
+    .gray { background: #2d2d2d; }
+    .gray:hover { background: #3b3b3b; }
 
-    .equals:hover {
-        background: linear-gradient(90deg, #00b7ff, #00fff7);
-        transform: scale(1.1);
-    }
+    .wide { grid-column: span 2; }
+    .equals { background: #00bfff; color: #000; }
 
-    .zero {
-        grid-column: span 2;
-    }
 </style>
 </head>
 <body>
 <div class="calculator">
-    <input type="text" id="result" disabled placeholder="0">
+    <div class="brand">
+        <div class="left">
+            <div class="name">ASHWINI CALCULATOR</div>
+            <div class="model">A-1752007</div>
+        </div>
+        <div class="right">NATURAL-V.P.A.M.</div>
+    </div>
+
+    <div class="display">
+        <small>DEG</small>
+        <div id="result">0</div>
+    </div>
+
     <div class="buttons">
-        <button onclick="clearResult()">C</button>
-        <button onclick="backspace()">←</button>
-        <button onclick="appendValue('/')">÷</button>
-        <button onclick="appendValue('*')">×</button>
+        <button class="yellow">SHIFT</button>
+        <button class="red">ALPHA</button>
+        <button class="gray">MODE</button>
+        <button class="gray">SETUP</button>
+        <button class="green" onclick="clearResult()">AC</button>
+        <button class="gray" onclick="backspace()">DEL</button>
 
-        <button onclick="appendValue('7')">7</button>
-        <button onclick="appendValue('8')">8</button>
-        <button onclick="appendValue('9')">9</button>
-        <button onclick="appendValue('-')">−</button>
+        <button class="gray">(</button>
+        <button class="gray">)</button>
+        <button class="gray" onclick="appendValue('/')">÷</button>
+        <button class="gray" onclick="appendValue('*')">×</button>
+        <button class="gray" onclick="appendValue('Math.sqrt(')">√</button>
+        <button class="gray" onclick="appendValue('**2')">x²</button>
 
-        <button onclick="appendValue('4')">4</button>
-        <button onclick="appendValue('5')">5</button>
-        <button onclick="appendValue('6')">6</button>
-        <button onclick="appendValue('+')">+</button>
+        <button class="gray" onclick="appendValue('7')">7</button>
+        <button class="gray" onclick="appendValue('8')">8</button>
+        <button class="gray" onclick="appendValue('9')">9</button>
+        <button class="gray" onclick="appendValue('-')">−</button>
+        <button class="gray" onclick="appendValue('+')">+</button>
+        <button class="gray" onclick="appendValue('%')">%</button>
 
-        <button onclick="appendValue('1')">1</button>
-        <button onclick="appendValue('2')">2</button>
-        <button onclick="appendValue('3')">3</button>
-        <button class="equals" onclick="calculateResult()">=</button>
+        <button class="gray" onclick="appendValue('4')">4</button>
+        <button class="gray" onclick="appendValue('5')">5</button>
+        <button class="gray" onclick="appendValue('6')">6</button>
+        <button class="gray" onclick="appendValue('Math.pow(')">xʸ</button>
+        <button class="gray" onclick="appendValue('Math.PI')">π</button>
+        <button class="gray" onclick="appendValue('Math.E')">e</button>
 
-        <button onclick="appendValue('0')" class="zero">0</button>
-        <button onclick="appendValue('.')">.</button>
+        <button class="gray" onclick="appendValue('1')">1</button>
+        <button class="gray" onclick="appendValue('2')">2</button>
+        <button class="gray" onclick="appendValue('3')">3</button>
+        <button class="gray" onclick="appendValue('Math.sin(')">sin</button>
+        <button class="gray" onclick="appendValue('Math.cos(')">cos</button>
+        <button class="gray" onclick="appendValue('Math.tan(')">tan</button>
+
+        <button class="gray" onclick="appendValue('0')">0</button>
+        <button class="gray" onclick="appendValue('.')">.</button>
+        <button class="equals wide" onclick="calculateResult()">=</button>
+        <button class="gray" onclick="appendValue('Math.log10(')">log</button>
+        <button class="gray" onclick="appendValue('Math.exp(')">eˣ</button>
+        <button class="gray" onclick="appendValue('Math.pow(10,')">10ˣ</button>
     </div>
 </div>
 
@@ -131,7 +170,6 @@
     let currentInput = '';
 
     function appendValue(value) {
-        if (value === '.' && currentInput.slice(-1) === '.') return;
         currentInput += value;
         updateDisplay();
     }
@@ -148,25 +186,26 @@
 
     function calculateResult() {
         try {
-            if (currentInput.includes('/0')) {
-                document.getElementById('result').value = '∞';
+            let result = Function('"use strict";return (' + currentInput + ')')();
+            if (result === Infinity || isNaN(result)) {
+                document.getElementById('result').innerText = 'Error';
                 currentInput = '';
-                return;
+            } else {
+                currentInput = result.toString();
+                updateDisplay();
             }
-            currentInput = Function('"use strict";return (' + currentInput + ')')();
-            updateDisplay();
         } catch {
-            document.getElementById('result').value = 'Error';
+            document.getElementById('result').innerText = 'Error';
             currentInput = '';
         }
     }
 
     function updateDisplay() {
-        document.getElementById('result').value = currentInput || '0';
+        document.getElementById('result').innerText = currentInput || '0';
     }
 
     document.addEventListener('keydown', (event) => {
-        if (!isNaN(event.key) || ['+', '-', '*', '/', '.'].includes(event.key)) {
+        if (!isNaN(event.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(event.key)) {
             appendValue(event.key);
         } else if (event.key === 'Enter') {
             calculateResult();
